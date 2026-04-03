@@ -1,12 +1,26 @@
-let lastCommand = null;
+import mqtt from 'mqtt'
 
-export default function handler(req, res) {
+dotenv.config()
+
+const client = mqtt.connect("mqtt://broker.hivemq.com", {
+  username: process.env.USERNAME,
+  password: process.env.PASSWORD
+});
+
+function sendCommand(cmd) {
+  client.publish("gate/control", cmd);
+}
+
+export default handler = (req, res) => {
   // 寫入指令（Shortcut 用）
   if (req.method === "POST") {
     const { action } = req.body || {};
 
     if (!["open", "close", "stop"].includes(action)) {
       return res.status(400).send("invalid");
+    }
+    else{
+      sendCommand('open')
     }
 
     lastCommand = {
