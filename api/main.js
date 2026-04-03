@@ -2,7 +2,7 @@ import mqtt from 'mqtt'
 
 dotenv.config()
 
-const client = mqtt.connect("mqtt://broker.hivemq.com", {
+const client = mqtt.connect("mqtt://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud", {
   username: process.env.USERNAME,
   password: process.env.PASSWORD
 });
@@ -19,10 +19,8 @@ export default handler = (req, res) => {
     if (!["open", "close", "stop"].includes(action)) {
       return res.status(400).send("invalid");
     }
-    else{
-      sendCommand('open')
-    }
-
+    
+    sendCommand('open')
     lastCommand = {
       action,
       time: Date.now()
