@@ -1,4 +1,7 @@
-{
+{  
+  "scripts": {
+    "dev": "node ./api/main.js"
+  },
   "dependencies": {
     "dotenv": "^17.4.0",
     "mqtt": "^5.15.1"
