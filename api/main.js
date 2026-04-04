@@ -24,7 +24,7 @@ function sendCommand(cmd) {
   client.publish("gate/control", cmd);
 }
 
-export default handler = (req, res) => {
+export default async function handler(req, res){
   // 寫入指令（Shortcut 用）
   if (req.method === "POST") {
     const { action } = req.body || {};
