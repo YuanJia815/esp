@@ -1,4 +1,5 @@
 import mqtt from 'mqtt'
+import dotenv from 'dotenv'
 
 dotenv.config()
 
