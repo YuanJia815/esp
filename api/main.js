@@ -4,24 +4,39 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 let client = null;
-function getClient(){
-  
-    client = mqtt.connect("ws://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud:8884/mqtt", {
-      username: process.env.USERNAME,
-      password: process.env.PASSWORD
-    });
-    client.on("connect", () => {
-      console.log("MQTT connected");
-      client.publish("gate/control", "open");
-    });
-    client.on("error", (err) => {
-      console.log("MQTT error:", err);
-    });
-  
+
+// client = mqtt.connect("mqtts://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud", {
+//   username: process.env.MQTT_USERNAME,
+//   password: process.env.MQTT_PASSWORD,
+//   port: 8883,
+// });
+// client.on("connect", () => {
+//   console.log("MQTT connected");
+//   client.publish("gate/control", "open");
+// });
+// client.on("error", (err) => {
+//   console.log("MQTT error:", err);
+// });
+
+function getClient() {
+
+  client = mqtt.connect("mqtts://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud", {
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    port: 8883
+  });
+  client.on("connect", () => {
+    console.log("MQTT connected");
+    client.publish("gate/control", "open");
+  });
+  client.on("error", (err) => {
+    console.log("MQTT error:", err);
+  });
+
   return client;
 };
 
-function sendCommand(client,cmd) {
+function sendCommand(client, cmd) {
   client.publish("gate/control", cmd);
   console.log("sendCommand");
 }
@@ -29,7 +44,7 @@ function sendCommand(client,cmd) {
 let lastCommand = null;
 
 export default async function handler(req, res) {
-  
+
 
   // 寫入指令（Shortcut 用）
   if (req.method === "POST") {
