@@ -6,7 +6,7 @@ dotenv.config()
 let client = null;
 function getClient(){
   if (!client) {
-    client = mqtt.connect("wss://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud:8884/mqtt", {
+    client = mqtt.connect("mqtt://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud:8884/mqtt", {
       username: process.env.USERNAME,
       password: process.env.PASSWORD
     });
