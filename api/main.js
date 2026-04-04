@@ -2,7 +2,7 @@ import mqtt from 'mqtt'
 
 dotenv.config()
 
-const client = mqtt.connect("mqtt://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud", {
+const client = mqtt.connect("fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud", {
   username: process.env.USERNAME,
   password: process.env.PASSWORD
 });
