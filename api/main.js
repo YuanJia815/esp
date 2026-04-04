@@ -18,16 +18,16 @@ let client = null;
 //   console.log("MQTT error:", err);
 // });
 
-function getClient() {
+async function getClient() {
 
-  client = mqtt.connect("mqtts://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud", {
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
+  client = await mqtt.connectAsync("mqtts://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud", {
+    username: process.env.MQTT_USERNAME,
+    password: process.env.MQTT_PASSWORD,
     port: 8883
   });
-  client.on("connect", () => {
+  client.on("connect", async () => {
     console.log("MQTT connected");
-    client.publish("gate/control", "open");
+    await client.publishAsync("gate/control", "open");
   });
   client.on("error", (err) => {
     console.log("MQTT error:", err);
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
       return res.status(400).send("invalid");
     }
 
-    const mqttClient = getClient();
+    const mqttClient = await getClient();
     //sendCommand(mqttClient, 'open');
 
     lastCommand = {
