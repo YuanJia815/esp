@@ -2,9 +2,21 @@ import mqtt from 'mqtt'
 
 dotenv.config()
 
-const client = mqtt.connect("fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud", {
+const client = mqtt.connect("wss://fb65afa1d6c34fa29ba74f059d62716c.s1.eu.hivemq.cloud:8884/mqtt", {
   username: process.env.USERNAME,
   password: process.env.PASSWORD
+});
+
+// 🔥 一定要有這個
+client.on("connect", () => {
+  console.log("MQTT connected");
+
+  // 測試用
+  client.publish("gate/control", "open");
+});
+
+client.on("error", (err) => {
+  console.log("MQTT error:", err);
 });
 
 function sendCommand(cmd) {
