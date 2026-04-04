@@ -23,6 +23,7 @@ function getClient(){
 
 function sendCommand(client,cmd) {
   client.publish("gate/control", cmd);
+  console.log("sendCommand");
 }
 
 let lastCommand = null;
