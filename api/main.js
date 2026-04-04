@@ -29,9 +29,8 @@ function sendCommand(client,cmd) {
 let lastCommand = null;
 
 export default async function handler(req, res) {
-  const mqttClient = getClient();
-  console.log("MQTT_USER =", process.env.USERNAME);
-  console.log("MQTT_PASS =", process.env.PASSWORD);
+  
+
   // 寫入指令（Shortcut 用）
   if (req.method === "POST") {
     const { action } = req.body || {};
@@ -40,7 +39,8 @@ export default async function handler(req, res) {
       return res.status(400).send("invalid");
     }
 
-    sendCommand(mqttClient, 'open');
+    const mqttClient = getClient();
+    //sendCommand(mqttClient, 'open');
 
     lastCommand = {
       action,
