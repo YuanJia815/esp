@@ -30,7 +30,8 @@ let lastCommand = null;
 
 export default async function handler(req, res) {
   const mqttClient = getClient();
-
+  console.log("MQTT_USER =", process.env.MQTT_USER);
+  console.log("MQTT_PASS =", process.env.MQTT_PASS);
   // 寫入指令（Shortcut 用）
   if (req.method === "POST") {
     const { action } = req.body || {};
