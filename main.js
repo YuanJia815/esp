@@ -1,5 +1,5 @@
 import mqtt from 'mqtt'
-import express from 'express';
+import express from 'express'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -23,12 +23,12 @@ client.on("error", (err) => {
 });
 
 app.get('/on', (req, res) => {
-  client.publish('esp32/control', 'ON');
+  client.publish('gate/control', 'open');
   res.send('LED ON');
 });
 
 app.get('/off', (req, res) => {
-  client.publish('esp32/control', 'OFF');
+  client.publish('gate/control', 'close');
   res.send('LED OFF');
 });
 
